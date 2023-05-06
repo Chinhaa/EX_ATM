@@ -4,6 +4,10 @@
  */
 package Bt;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -23,7 +27,7 @@ public class Manager{
      listEmployee.add(new Employee(3,"Dinh Van C",18,10000.0));
      listEmployee.add(new Employee(4,"Dinh Thi D",25,25000.0));
      listEmployee.add(new Employee(5,"Tran Binh A",29,20000.0));
-     
+ 
 }
      public static void inputInfor(){
         
@@ -72,13 +76,34 @@ public class Manager{
             }
          Employee employee=new Employee(id,name,age,salary);   
          listEmployee.add(employee);
-         System.out.println("Add : "+name);
+         System.out.println("Added : "+name);
+         try {
+             FileOutputStream fileOutputStream=new FileOutputStream("C:\\Users\\dinhv\\Desktop\\data.dat");
+             ObjectOutputStream objectOutputStream=new ObjectOutputStream(fileOutputStream);
+             objectOutputStream.writeObject(listEmployee);
+             objectOutputStream.close();
+             fileOutputStream.close();
+             System.out.println("Data is saved in data.dat");
+         } catch (Exception e) {
+         }
      }
      public static void displayInfor(){
          System.out.println("Employee list");
          for(Employee employee: listEmployee){
              System.out.println(employee.toString());
          }
+         System.out.println("Read data.dat==================================================");
+          try {
+            FileInputStream fileInputStream=new FileInputStream("C:\\Users\\dinhv\\Desktop\\data.dat");
+            ObjectInputStream objectInputStream=new ObjectInputStream(fileInputStream);
+             ArrayList<Employee> list = (ArrayList<Employee>) objectInputStream.readObject();
+             fileInputStream.close();
+             objectInputStream.close();
+             for(Employee employee: list){{
+                 System.out.println(employee);                                                
+             }}                      
+        } catch (Exception e) {
+        }
      }
      public static void search(){
          System.out.println("Input search by id :");

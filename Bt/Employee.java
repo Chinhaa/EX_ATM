@@ -4,11 +4,13 @@
  */
 package Bt;
 
+import java.io.Serializable;
+
 /**
  *
  * @author dinhv
  */
-public class Employee implements Comparable<Employee> {
+public class Employee implements Comparable<Employee>,Serializable {
     private int id;
     private String name;
     private int age;
